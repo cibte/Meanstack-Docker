@@ -1,0 +1,24 @@
+version: "3.3"
+services:
+  web:
+    restart: always
+    build: .
+    ports:
+     - "3000-3005:3000"
+    links:
+      - mongodb
+    depends_on:
+     - "mongodb"
+    networks:
+      - compose
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - compose
+networks:
+  compose:
+    # Use a custom driver
+    driver: bridge
